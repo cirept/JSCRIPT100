@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First JavaScript</title>
+    <script>
+        // *********************************************
+        // **    Code Author:   Eric Tanaka 
+        // **    Date: 10/23/2017
+        // **    Description: A madlib game.  the program will ask the user for an exclamation, an adverb, a noun, and an adjective input via prompt
+        // **    
+        // **********************************************
+        // **       Change Log 
+        // **     10/9/17 – Added header and changelog. Cliff Knopik
+        // **     10/23/17 – Added isInputEmpty, requestUserInput, displayMadlib, and runMadlib functions. Cliff Knopik
+        // **********************************************
+
+        // *********************************************
+        // ** Functions        
+        // *********************************************
+
+        /**
+         * Checks to see if the parameter is empty or null.  Returns true or false if the userinput is valid.
+         *
+         * @param {string} userInput - the users input that you would like to check if is valid.
+         * @returns {boolean} inputValid - is the userInput empty?
+         */
+        var isInputEmpty = (userInput) => {
+            // declare function variable
+            var inputValid;
+
+            userInput = userInput.trim();
+
+            // checks to see if the userInput is empty or null
+            if (!userInput || userInput === '' || userInput == 'null') {
+                // set variable to false if the userInput IS NOT valid
+                inputValid = true;
+            } else {
+                // set variable to false if the userInput IS valid
+                inputValid = false;
+            }
+
+            // return the outcome of the if statement
+            return inputValid;
+        }
+
+        /**
+         * Ask the user for input, validate input for empty values, and store each input in an array
+         * @return {array} wordArray - an object array that contains the users' input
+         */
+        var requestUserInput = () => {
+            // declare variables
+            let wordArray = {
+                'exclamation': '',
+                'adverb': '',
+                'noun': '',
+                'adjective': ''
+            };
+            let message = '';
+
+            // will loop through the wordArray
+            for (var key in wordArray) {
+                // will change the prompt message depending on the KEY value
+                switch (key) {
+                    case 'exclamation':
+                        message = `Please enter an ${key}.  (e.g. Hey, Ouch, Ooops)`;
+                        break;
+                    case 'adverb':
+                        message = `Please enter an ${key}.  (e.g. quickly, slowly, carefully)`;
+                        break;
+                    case 'noun':
+                        message = `Please enter an ${key}.  (e.g. man, moutain, state)`;
+                        break;
+                    case 'adjective':
+                        message = `Please enter an ${key}.  (e.g. dirty, tired, soft)`;
+                        break;
+                }
+
+                // ask user for input with custom message
+                wordArray[key] = window.prompt(message);
+
+                // Validation loop for adverb
+                while (!wordArray[key] || isInputEmpty(wordArray[key])) { // Loop while 'adverb' is null OR empty
+                    // Display error alert
+                    window.alert("Please enter a word to continue.");
+                    // Ask user to enter an adverb
+                    wordArray[key] = window.prompt(message);
+                }
+            }
+            
+            return wordArray;
+        }
+
+        /**
+         * Will build out the madlib using the input parameters and display it on the page
+         * @param (string) exclamation - an exclamation word
+         * @param (string) adverb - an adverb word
+         * @param (string) noun - an noun word
+         * @param (string) adjective - an adjective word
+         */
+        var displayMadlib = (exclamation, adverb, noun, adjective) => {
+            let madlib = `<u><b>${exclamation}</b></u>! he said <u><b>${adverb}</b></u> as he jumped into his convertible <u><b>${noun}</b></u> and drove off with his <u><b>${adjective}</b></u> wife.`;
+
+            document.getElementById('message').innerHTML = madlib;
+        }
+
+        /**
+         * Will run the Madlib program.
+         */
+        var runMadlib = () => {
+            // declare variables
+            let wordArray = requestUserInput();
+
+            // call display function
+            displayMadlib(wordArray.exclamation, wordArray.adverb, wordArray.noun, wordArray.adjective);
+        }
+
+        window.onload = runMadlib;
+    </script>
+</head>
+
+<body>
+    <p id="message">The completed Madlib goes here</p>
+    <button onclick="runMadlib()">Play Again</button>
+</body>
+
+</html>

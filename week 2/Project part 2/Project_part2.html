@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First JavaScript</title>
+    <script>
+        // *********************************************
+        // **    Code Author:   Raymond Frenchmore 
+        // **    Date: 10/10/2017                        
+        // **    Description: DESCRIPTION
+        // **    
+        // **********************************************
+        // **		Change Log 
+        // **   10/9/17 – Added header and changelog.   || Cliff Knopik
+        // **	10/10/17 - Added alert box that displays a welcome message with the user name.    || Raymond Frenchmore
+        // **	10/22/17 - Created input validation function to check if userInput is empty.  Added prompt to ask user how wide the game board will be.   || Eric Tanaka
+        // **********************************************
+
+        // *********************************************
+        // ** Functions        
+        // *********************************************
+
+        /**
+         * Checks to see if the parameter is empty or null.  Returns true or false if the userinput is valid.
+         *
+         * @param {string} userInput - the users input that you would like to check if is valid.
+         * @returns {boolean} inputValid - is the userInput empty?
+         */
+        function isInputEmpty(userInput) {
+            // declare function variable
+            var inputValid;
+
+            userInput = userInput.trim();
+
+            // checks to see if the userInput is empty or null
+            if (!userInput || userInput === '' || userInput == 'null') {
+                // set variable to false if the userInput IS NOT valid
+                inputValid = true;
+            } else {
+                // set variable to false if the userInput IS valid
+                inputValid = false;
+            }
+
+            // return the outcome of the if statement
+            return inputValid;
+        }
+
+        // *********************************************
+        // ** Main        
+        // *********************************************
+
+        // Declare variables with default values
+        var name = window.prompt("What's your name?", "User1");
+        var boardWidth;
+
+        // Validation check for name
+        while (!name || isInputEmpty(name)) { // Loop while 'name' is null OR empty
+            // Display error alert
+            window.alert("Please enter a name to continue.");
+            // Ask user to enter a name
+            name = window.prompt("What's your name?", "User1");
+        }
+
+        // Welcome alert
+        alert("Welcome, '" + name + "'!  \n   Shall we play a game?");
+
+        // Ask user for how wide the game board will be
+        boardWidth = window.prompt("How wide shall the game board be? (Minimum is 5)", "5");
+
+        // Ask user for width input if the input is EMPTY or less than 5
+        while (!boardWidth || isInputEmpty(boardWidth) || parseInt(boardWidth) < 5) // convert boardWidth to INT to be able to compare towards a number value
+        {
+            // Display error alert
+            window.alert("Please enter a valid number to continue.");
+            // Ask user for how wide the game board will be
+            boardWidth = window.prompt("How wide shall the game board be? (Minimum is 5)", "5");
+        }
+
+        // Converts input to a INT type so we can start using the input as a number
+        boardWidth = parseInt(boardWidth.trim());
+
+        // Write '0' to the document while the 'boardWidth' variable is greater than 0
+        do {
+            // write 0
+            document.write("0");
+            // minus boardWidth by 1 after each iteration of the loop
+            boardWidth -= 1;
+        } while (boardWidth > 0);
+        
+    </script>
+</head>
+
+<body>
+    <p>The Game Board goes here</p>
+</body>
+
+</html>

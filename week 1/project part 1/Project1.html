@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My First JavaScript</title>
+    <script>
+        // *********************************************
+        // **    Code Author:   Eric Tanaka 
+        // **    Date: 10/15/2017                        
+        // **    Description: Minesweeper game
+        // **    
+        // **********************************************
+        // **      Change Log 
+        // **      10/9/17 – Added header and changelog. Cliff Knopik
+        // **      10/15/2017 - Created prompt requesting username and welcome alert. Eric Tanaka 
+        // **********************************************
+
+        /**
+         * Prompts user for a username.
+         * Verifies if the user has entered a name.
+         */
+        var getUsername = () => {
+            // variable declarations
+            let welcomeMessage;
+            let errorAlart;
+            let username = window.prompt('What shall I call you?', 'Enter username here');
+
+            // validation check for username
+            while (!username || username.trim() === '') // loop while 'username' is null OR empty
+            {
+                // display 'empty username' alert
+                window.alert('No username entered.  Please enter a username');
+                // ask user to enter a username
+                username = window.prompt('What shall I call you?', 'Enter username here');
+            }
+
+            // remove whitespace from username
+            username.trim();
+            // display alert with welcome message
+            window.alert(`Hello, ${username}!   Shall we play a game?`);
+            document.getElementById('message').innerHTML = `Welcome ${username}`;
+        }
+
+        // call getUsername function after window fully loads
+        window.onload = getUsername;
+    </script>
+</head>
+
+<body>
+    <p id="message">The HTML goes here</p>
+    <button onclick="getUsername()">Set Username</button>
+</body>
+
+</html>
